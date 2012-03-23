@@ -17,3 +17,9 @@ Then /^the director of "([^"]*)" should be "([^"]*)"$/ do |arg1, arg2|
   Movie.where(:title => arg1,:director => arg2 ).size.should > 0
 end
 
+=begin
+Then /^(?:|I )should be on the Similar Movies for "(.+)"$/ do |movie_title|
+  pending 'find the movie title and the page flag'
+end  
+=end
+

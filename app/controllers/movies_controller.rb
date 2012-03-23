@@ -1,5 +1,16 @@
 class MoviesController < ApplicationController
 
+  def find_similar
+    @pattern=Movie.find(params[:id])
+    if @pattern.director==nil || @pattern.director==""
+     session[:warning] = "'#{@pattern.title}' has no director info"
+     redirect_to movies_path
+    end
+    
+    @movies=Movie.where("director='#{@pattern.director}' AND id != '#{params[:id]}'" )
+    #@movies=Movie.find_similar_to(params[:id])
+  end
+ 
   def show
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
@@ -27,6 +38,14 @@ class MoviesController < ApplicationController
       session[:ratings] = @selected_ratings
       redirect_to :sort => sort, :ratings => @selected_ratings and return
     end
+    
+    
+     if session[:warning]
+     @message=session[:warning]
+     session[:warning]=nil
+    end
+    
+    
     @movies = Movie.find_all_by_rating(@selected_ratings.keys, ordering)
   end
 

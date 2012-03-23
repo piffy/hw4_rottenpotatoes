@@ -46,6 +46,8 @@ gem 'haml'
 
 # add to end of Gemfile
 group :test, :development do
+  gem 'simplecov', :require => false
+  gem 'factory_girl'
   gem 'cucumber-rails'
   gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions  
   gem 'database_cleaner' # to clear Cucumber's test database between runs
